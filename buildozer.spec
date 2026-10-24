@@ -42,9 +42,6 @@ android.ndk = 25b
 # (int) Android SDK version to use
 android.sdk = 34
 
-# (str) Android NDK version to use
-android.ndk = 25b
-
 # (list) The Android archs to build for
 android.archs = arm64-v8a, armeabi-v7a
 
