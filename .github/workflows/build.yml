@@ -1,4 +1,4 @@
-name: Build Android APK
+name: Build Flet APK
 
 on:
   workflow_dispatch:
@@ -9,32 +9,37 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.x'
+          channel: 'stable'
+          android: true
+
       - name: Install Dependencies
         run: |
-          sudo apt update
-          sudo apt install -y git zip unzip openjdk-17-jdk autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libsqlite3-dev cmake libssl-dev
           pip install --upgrade pip
-          pip install buildozer cython==0.29.33
+          pip install flet
 
-      - name: Accept Android SDK Licenses
+      - name: Build APK with Flet
         run: |
-          mkdir -p /home/runner/.android
-          echo "### License accepted automatically ###"
-          yes | sdkmanager --licenses || true
-
-      - name: Build APK with Buildozer
-        run: |
-          buildozer -v android debug
+          flet build apk --platforms android
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: StudyFlow-APK
-          path: bin/*.apk
+          path: build/apk/*.apk
