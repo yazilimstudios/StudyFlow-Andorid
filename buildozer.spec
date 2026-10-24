@@ -31,7 +31,7 @@ fullscreen = 0
 android.permissions = INTERNET
 
 # (int) Target Android API
-android.api = 34
+android.api = 33
 
 # (int) Minimum API your APK will support
 android.minapi = 24
@@ -40,7 +40,7 @@ android.minapi = 24
 android.ndk = 25b
 
 # (int) Android SDK version to use
-android.sdk = 34
+android.sdk = 33
 
 # (list) The Android archs to build for
 android.archs = arm64-v8a, armeabi-v7a
